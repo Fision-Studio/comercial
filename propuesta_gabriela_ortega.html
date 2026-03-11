@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Propuesta de Servicios · Gabriela · The Fusion Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,300;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --blanco:   #F9FCFB;
+  --carbon:   #383E39;
+  --mid:      #6E7769;
+  --rojo:     #871717;
+  --sage:     #E5E6D4;
+  --sage-mid: #D4D5C2;
+  --borde:    #DEDED4;
+  --negro:    #1E1F1E;
+  --sans:     'DM Sans', sans-serif;
+  --serif:    'DM Serif Display', serif;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--negro);
+  font-family: var(--sans);
+  color: var(--carbon);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── NAV ─────────────────────────────────────── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(30,31,30,.96);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255,255,255,.05);
+  padding: 0 56px; height: 52px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-brand {
+  font-family: var(--serif); font-style: italic;
+  font-size: 14px; color: rgba(249,252,251,.5);
+}
+.nav-brand strong {
+  font-family: var(--sans); font-style: normal;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(249,252,251,.9);
+}
+.nav-brand span { color: rgba(249,252,251,.2); margin: 0 8px; }
+.nav-links { display: flex; gap: 28px; }
+.nav-links a {
+  font-size: 10px; font-weight: 600;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(249,252,251,.28); text-decoration: none;
+  transition: color .2s;
+}
+.nav-links a:hover { color: rgba(249,252,251,.75); }
+.nav-date { font-size: 10px; color: rgba(249,252,251,.18); letter-spacing: .08em; }
+
+/* ── PROGRESS ─────────────────────────────────── */
+.progress-bar {
+  position: fixed; top: 52px; left: 0;
+  height: 2px; background: var(--rojo);
+  width: 0%; transition: width .1s linear;
+  z-index: 99;
+}
+
+/* ── SECTIONS ─────────────────────────────────── */
+section { position: relative; overflow: hidden; }
+
+.s-dark    { background: var(--negro);  padding: 120px 96px; }
+.s-light   { background: var(--blanco); padding: 120px 96px; }
+.s-sage    { background: var(--sage);   padding: 120px 96px; }
+.s-carbon  { background: var(--carbon); padding: 120px 96px; }
+
+/* ── SECTION HEADER ───────────────────────────── */
+.sec-header {
+  display: grid; grid-template-columns: auto 1fr auto;
+  gap: 40px; align-items: end;
+  margin-bottom: 72px; padding-bottom: 32px;
+}
+.sec-header.light { border-bottom: 1px solid var(--borde); }
+.sec-header.dark  { border-bottom: 1px solid rgba(255,255,255,.07); }
+.sec-header.sage  { border-bottom: 1px solid var(--sage-mid); }
+.sec-header.carbon { border-bottom: 1px solid rgba(249,252,251,.1); }
+
+.sec-num {
+  font-family: var(--serif); font-style: italic;
+  font-size: 72px; line-height: 1;
+  color: var(--sage);
+}
+.sec-header.dark   .sec-num { color: rgba(56,62,57,.6); }
+.sec-header.sage   .sec-num { color: var(--sage-mid); }
+.sec-header.carbon .sec-num { color: rgba(249,252,251,.1); }
+
+.sec-titles { display: flex; flex-direction: column; gap: 8px; }
+.sec-eyebrow {
+  font-size: 10px; font-weight: 700; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--mid);
+}
+.sec-header.dark   .sec-eyebrow { color: rgba(110,119,105,.8); }
+.sec-header.carbon .sec-eyebrow { color: rgba(249,252,251,.4); }
+.sec-title {
+  font-family: var(--serif); font-style: italic;
+  font-size: clamp(28px, 3.5vw, 44px);
+  line-height: 1.05; color: var(--carbon);
+}
+.sec-header.dark   .sec-title  { color: var(--blanco); }
+.sec-header.sage   .sec-title  { color: var(--carbon); }
+.sec-header.carbon .sec-title  { color: var(--blanco); }
+
+.sec-desc {
+  font-size: 13px; font-weight: 300;
+  color: var(--mid); line-height: 1.65;
+  max-width: 340px; align-self: end;
+}
+.sec-header.dark   .sec-desc { color: rgba(249,252,251,.3); }
+.sec-header.carbon .sec-desc { color: rgba(249,252,251,.4); }
+
+/* ── COVER ─────────────────────────────────────── */
+.s-cover {
+  background: var(--negro);
+  display: grid; grid-template-rows: 1fr auto;
+  padding-top: 52px;
+}
+.cover-main {
+  display: grid; grid-template-columns: 1fr 1fr;
+  min-height: calc(100vh - 52px);
+}
+.cover-left {
+  padding: 72px 64px 64px;
+  display: flex; flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid rgba(255,255,255,.05);
+}
+.cover-right {
+  padding: 72px 64px 64px;
+  display: flex; flex-direction: column;
+  justify-content: flex-end;
+  position: relative;
+}
+/* anillos decorativos sutiles */
+.cover-right::before {
+  content: '';
+  position: absolute; top: -80px; right: -80px;
+  width: 480px; height: 480px;
+  border-radius: 50%;
+  border: 1px solid rgba(110,119,105,.15);
+  pointer-events: none;
+}
+.cover-right::after {
+  content: '';
+  position: absolute; top: -20px; right: -20px;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  border: 1px solid rgba(110,119,105,.08);
+  pointer-events: none;
+}
+.cover-eyebrow {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--mid);
+  display: flex; align-items: center; gap: 10px;
+}
+.cover-eyebrow::before {
+  content: ''; width: 28px; height: 1px;
+  background: var(--mid);
+}
+.cover-title {
+  font-family: var(--serif);
+  font-size: clamp(64px, 9vw, 120px);
+  font-style: italic; font-weight: 400;
+  color: var(--blanco); line-height: .92;
+  letter-spacing: -.02em;
+  margin: auto 0;
+}
+.cover-subtitle {
+  font-size: 15px; font-weight: 300;
+  color: rgba(249,252,251,.38); line-height: 1.5;
+  font-style: italic;
+}
+.cover-meta { display: flex; flex-direction: column; gap: 5px; }
+.cover-meta-item {
+  font-size: 11px; color: rgba(249,252,251,.22);
+  letter-spacing: .04em;
+}
+.cover-meta-item strong { color: rgba(249,252,251,.6); font-weight: 500; }
+
+.cover-desc {
+  font-size: 14px; font-weight: 300;
+  color: rgba(249,252,251,.45); line-height: 1.75;
+  max-width: 380px; margin-bottom: 48px;
+}
+.cover-desc em { color: rgba(249,252,251,.82); font-style: normal; font-weight: 400; }
+
+.cover-cards { display: flex; flex-direction: column; gap: 1px; }
+.ccard {
+  padding: 18px 24px;
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.04);
+  display: flex; align-items: center;
+  justify-content: space-between;
+  transition: background .2s;
+}
+.ccard:hover { background: rgba(110,119,105,.12); }
+.ccard-label { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(249,252,251,.25); }
+.ccard-val { font-family: var(--serif); font-size: 18px; color: var(--blanco); font-style: italic; }
+.ccard-val span { color: var(--mid); }
+
+.scroll-hint {
+  padding: 16px 64px;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(249,252,251,.12);
+  display: flex; align-items: center; gap: 12px;
+  border-top: 1px solid rgba(255,255,255,.04);
+}
+.scroll-hint::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,.04); }
+
+/* ── GRID 2×2 cells ───────────────────────────── */
+.cells-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+.cell {
+  padding: 44px 40px;
+  display: flex; flex-direction: column; gap: 14px;
+}
+.cell.blanco   { background: var(--blanco); }
+.cell.sage     { background: var(--sage); }
+.cell.carbon   { background: var(--carbon); }
+.cell.dark-row { background: var(--negro); }
+.cell.sage-mid { background: var(--sage-mid); }
+
+.cell-num {
+  font-family: var(--serif); font-style: italic;
+  font-size: 13px; color: var(--mid);
+}
+.cell.carbon .cell-num { color: rgba(110,119,105,.7); }
+.cell.dark-row .cell-num { color: rgba(110,119,105,.6); }
+
+.cell-eyebrow {
+  font-size: 10px; font-weight: 700; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--mid);
+}
+.cell.carbon .cell-eyebrow { color: rgba(249,252,251,.35); }
+.cell.dark-row .cell-eyebrow { color: rgba(110,119,105,.7); }
+
+.cell-title {
+  font-family: var(--serif); font-style: italic;
+  font-size: 22px; color: var(--carbon);
+  line-height: 1.2;
+}
+.cell.carbon .cell-title { color: var(--blanco); }
+.cell.dark-row .cell-title { color: var(--blanco); }
+
+.cell-desc {
+  font-size: 12px; font-weight: 300;
+  color: var(--mid); line-height: 1.65;
+}
+.cell.carbon .cell-desc { color: rgba(249,252,251,.45); }
+.cell.dark-row .cell-desc { color: rgba(249,252,251,.35); }
+
+/* ── DETALLE DE SERVICIO ──────────────────────── */
+.service-row {
+  display: grid; grid-template-columns: 80px 1fr 1fr;
+  min-height: 200px; background: var(--borde);
+  gap: 0;
+}
+.srv-num-col {
+  background: var(--carbon);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 4px; padding: 24px 14px;
+}
+.srv-num {
+  font-family: var(--serif); font-style: italic;
+  font-size: 32px; color: var(--blanco); line-height: 1;
+}
+.srv-weeks {
+  font-size: 9px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(249,252,251,.22); text-align: center;
+}
+.srv-main {
+  background: var(--blanco);
+  padding: 32px 36px;
+  display: flex; flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid var(--borde);
+}
+.srv-title {
+  font-family: var(--serif); font-style: italic;
+  font-size: 22px; color: var(--carbon); line-height: 1.2;
+  margin-bottom: 6px;
+}
+.srv-sub { font-size: 11px; font-weight: 300; color: var(--mid); margin-bottom: 18px; }
+.srv-items { display: flex; flex-direction: column; gap: 7px; }
+.srv-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 12px; font-weight: 300; color: var(--carbon);
+  line-height: 1.55;
+}
+.srv-dot {
+  width: 4px; height: 4px;
+  background: var(--mid); flex-shrink: 0; margin-top: 6px;
+}
+.srv-ents {
+  background: var(--sage);
+  padding: 32px 36px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.srv-ent-label {
+  font-size: 9px; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: var(--mid); margin-bottom: 6px;
+}
+.srv-ent-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 11px; font-weight: 300; color: var(--mid);
+  line-height: 1.5;
+}
+.srv-ent-dot {
+  width: 3px; height: 3px;
+  background: var(--sage-mid); flex-shrink: 0;
+  margin-top: 6px;
+  border: 1px solid var(--mid);
+}
+
+/* ── INVERSIÓN ────────────────────────────────── */
+.inv-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+.inv-main {
+  background: var(--negro);
+  padding: 64px 56px;
+  display: flex; flex-direction: column;
+  justify-content: space-between;
+}
+.inv-label {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(249,252,251,.3); margin-bottom: 16px;
+}
+.inv-amount {
+  font-family: var(--serif); font-style: italic;
+  font-size: clamp(52px, 7vw, 88px);
+  color: var(--blanco); line-height: 1;
+}
+.inv-amount span { color: var(--mid); }
+.inv-sub {
+  font-size: 13px; font-weight: 300;
+  color: rgba(249,252,251,.3); line-height: 1.6;
+  margin-top: 16px;
+}
+.inv-pagos {
+  display: flex; gap: 2px; margin-top: 40px;
+}
+.inv-pago {
+  flex: 1; padding: 20px 20px;
+  border: 1px solid rgba(110,119,105,.25);
+  background: rgba(110,119,105,.1);
+  display: flex; flex-direction: column; gap: 5px;
+}
+.ip-pct {
+  font-family: var(--serif); font-style: italic;
+  font-size: 28px; color: var(--blanco);
+}
+.ip-label { font-size: 10px; font-weight: 300; color: rgba(249,252,251,.3); }
+
+.inv-includes {
+  background: var(--blanco);
+  padding: 48px 40px;
+  display: flex; flex-direction: column;
+}
+.ii-title {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: var(--mid); margin-bottom: 24px;
+}
+.ii-item {
+  padding: 15px 0;
+  border-bottom: 1px solid var(--borde);
+  display: flex; align-items: center;
+  justify-content: space-between; gap: 16px;
+}
+.ii-item:last-child { border: none; }
+.ii-name { font-size: 13px; font-weight: 400; color: var(--carbon); }
+.ii-check { color: var(--mid); font-size: 13px; font-weight: 700; }
+
+/* ── CIERRE ───────────────────────────────────── */
+.s-cierre {
+  background: var(--carbon);
+  padding: 120px 96px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; gap: 28px;
+  min-height: 100vh;
+  position: relative; overflow: hidden;
+}
+.cierre-ring {
+  position: absolute; border-radius: 50%;
+  border: 1px solid rgba(249,252,251,.04);
+  pointer-events: none;
+}
+.cierre-eyebrow {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: rgba(249,252,251,.3);
+}
+.cierre-title {
+  font-family: var(--serif); font-style: italic;
+  font-size: clamp(36px, 5.5vw, 64px);
+  color: var(--blanco); line-height: 1.08;
+  max-width: 700px;
+}
+.cierre-cta {
+  display: inline-flex; align-items: center; gap: 12px;
+  background: var(--rojo); color: var(--blanco);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  padding: 16px 32px;
+  margin-top: 8px; text-decoration: none;
+  transition: opacity .2s; cursor: pointer; border: none;
+}
+.cierre-cta:hover { opacity: .88; }
+
+.cierre-footer {
+  position: absolute; bottom: 32px;
+  display: flex; align-items: center; gap: 16px;
+  font-size: 10px; color: rgba(249,252,251,.18);
+  letter-spacing: .06em;
+}
+.cf-dot { width: 3px; height: 3px; border-radius: 50%; background: rgba(249,252,251,.18); }
+
+/* ── SCOPE GRID ───────────────────────────────── */
+.scope-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+.scope-col { padding: 48px 44px; display: flex; flex-direction: column; gap: 0; }
+.scope-col.incluye { background: var(--sage); }
+.scope-col.fuera   { background: var(--blanco); }
+.sc-title {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .16em; text-transform: uppercase;
+  margin-bottom: 20px; padding-bottom: 14px;
+}
+.scope-col.incluye .sc-title { color: var(--mid);  border-bottom: 1px solid var(--sage-mid); }
+.scope-col.fuera   .sc-title { color: var(--rojo); border-bottom: 1px solid var(--borde); }
+.scope-item {
+  display: flex; gap: 12px; align-items: flex-start;
+  font-size: 12px; font-weight: 300; line-height: 1.6;
+  color: var(--carbon); padding: 12px 0;
+  border-bottom: 1px solid rgba(0,0,0,.05);
+}
+.scope-item:last-child { border: none; padding-bottom: 0; }
+.si-dot { font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+.scope-col.incluye .si-dot { color: var(--mid); }
+.scope-col.fuera   .si-dot { color: var(--rojo); }
+
+/* ── ANIMATE ──────────────────────────────────── */
+.reveal {
+  opacity: 0; transform: translateY(22px);
+  transition: opacity .65s ease, transform .65s ease;
+}
+.reveal.visible { opacity: 1; transform: none; }
+.reveal-delay-1 { transition-delay: .1s; }
+.reveal-delay-2 { transition-delay: .2s; }
+.reveal-delay-3 { transition-delay: .3s; }
+.reveal-delay-4 { transition-delay: .4s; }
+
+/* ── RESPONSIVE ───────────────────────────────── */
+@media (max-width: 768px) {
+  .cover-main { grid-template-columns: 1fr; }
+  .cover-right, .srv-ents { display: none; }
+  .s-dark, .s-light, .s-sage, .s-carbon { padding: 80px 28px; }
+  .cells-grid, .scope-grid, .inv-layout { grid-template-columns: 1fr; }
+  .service-row { grid-template-columns: 56px 1fr; }
+  .nav-links { display: none; }
+  .sec-header { grid-template-columns: auto 1fr; }
+  .sec-desc { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress"></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">
+    Josefina & Gabriela
+  </div>
+  <div class="nav-links">
+    <a href="#servicios">Servicios</a>
+    <a href="#detalle">Detalle</a>
+    <a href="#entregables">Entregables</a>
+    <a href="#inversion">Inversión</a>
+  </div>
+  <div class="nav-date">2026</div>
+</nav>
+
+<!-- ═══════════════════════════════════════
+     PORTADA
+═══════════════════════════════════════ -->
+<section class="s-cover" id="top">
+  <div class="cover-main">
+    <div class="cover-left">
+      <div class="cover-eyebrow">Propuesta de servicios de diseño</div>
+      <div class="cover-title">Diseño<br>y Comuni&shy;cación.</div>
+      <div>
+        <div class="cover-subtitle">Identidad · Redes · Experiencia<br>para una escribanía que construye presencia.</div>
+        <div class="cover-meta" style="margin-top:32px;">
+          <div class="cover-meta-item">Preparado por <strong>Josefina y Gabriela</strong></div>
+          <div class="cover-meta-item">Para <strong>Gabriela Ortega · Escribana</strong></div>
+          <div class="cover-meta-item">Fecha <strong>11 de marzo de 2026</strong></div>
+          <div class="cover-meta-item">Duración estimada del proyecto <strong>20 días hábiles</strong></div>
+        </div>
+      </div>
+    </div>
+    <div class="cover-right">
+      <div class="cover-desc">
+        Este documento presenta lo que vamos a hacer juntas — qué implica cada servicio, qué recibís al final y cuánto es la inversión. <em>Sin sorpresas, sin letra chica.</em>
+      </div>
+      <div class="cover-cards">
+        <div class="ccard">
+          <div class="ccard-label">Servicio 01</div>
+          <div class="ccard-val">Branding <span>&</span> Identidad</div>
+        </div>
+        <div class="ccard">
+          <div class="ccard-label">Servicio 02</div>
+          <div class="ccard-val">Gestión <span>Instagram</span></div>
+        </div>
+        <div class="ccard">
+          <div class="ccard-label">Servicio 03</div>
+          <div class="ccard-val">Experiencia <span>de Servicio</span></div>
+        </div>
+        <div class="ccard">
+          <div class="ccard-label">Inversión total</div>
+          <div class="ccard-val">USD <span>1.500</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">Scroll para ver la propuesta completa</div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     RESUMEN · 4 CELDAS
+═══════════════════════════════════════ -->
+<section class="s-light" id="servicios">
+  <div class="sec-header light reveal">
+    <div class="sec-num">01</div>
+    <div class="sec-titles">
+      <div class="sec-eyebrow">Resumen de servicios</div>
+      <div class="sec-title">Lo que vamos<br>a construir juntas.</div>
+    </div>
+    <div class="sec-desc">Tres frentes de trabajo coordinados para que tu estudio tenga imagen, presencia y experiencia a la altura.</div>
+  </div>
+
+  <div class="cells-grid">
+    <div class="cell sage reveal reveal-delay-1">
+      <div class="cell-eyebrow">01 · Branding</div>
+      <div class="cell-title">Identidad de Marca<br>desde cero.</div>
+      <div class="cell-desc">Marca completa, logotipo, código visual, tipografía, paleta y lineamientos de uso. La base sobre la que todo lo demás se construye.</div>
+    </div>
+    <div class="cell carbon reveal reveal-delay-2">
+      <div class="cell-eyebrow">02 · Redes</div>
+      <div class="cell-title">Gestión mensual<br>de Instagram.</div>
+      <div class="cell-desc">9 publicaciones de feed y 12 historias por mes. Diseño alineado a la identidad y contenido estratégico para posicionar el estudio.</div>
+    </div>
+    <div class="cell dark-row reveal reveal-delay-3">
+      <div class="cell-eyebrow">03 · Experiencia</div>
+      <div class="cell-title">Piezas que mejoran<br>cada contacto.</div>
+      <div class="cell-desc">Placa de recordatorio de cita y brochure institucional. Cada punto de contacto con el cliente comunica profesionalismo.</div>
+    </div>
+    <div class="cell blanco reveal reveal-delay-4" style="background:var(--blanco);">
+      <div class="cell-eyebrow">Tiempo de ejecución</div>
+      <div class="cell-title" style="font-size:64px; line-height:.88; margin: auto 0;">20</div>
+      <div class="cell-desc" style="font-family:var(--serif);font-style:italic;font-size:18px;color:var(--carbon);">días hábiles<br>desde confirmación y pago inicial.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     DETALLE DE SERVICIOS
+═══════════════════════════════════════ -->
+<section class="s-sage" id="detalle">
+  <div class="sec-header sage reveal">
+    <div class="sec-num">02</div>
+    <div class="sec-titles">
+      <div class="sec-eyebrow">Detalle de servicios</div>
+      <div class="sec-title">Qué incluye<br>cada servicio.</div>
+    </div>
+    <div class="sec-desc">Cada servicio tiene entregables concretos y un alcance claro desde el inicio.</div>
+  </div>
+
+  <div style="display:flex; flex-direction:column; gap:2px;">
+
+    <!-- Servicio 01 -->
+    <div class="service-row reveal">
+      <div class="srv-num-col">
+        <div class="srv-num">01</div>
+      </div>
+      <div class="srv-main">
+        <div>
+          <div class="srv-title">Branding / Identidad de Marca</div>
+          <div class="srv-sub">La imagen profesional, coherente y reconocible para tu estudio.</div>
+          <div class="srv-items">
+            <div class="srv-item"><div class="srv-dot"></div>Creación de marca e imagen completa</div>
+            <div class="srv-item"><div class="srv-dot"></div>Diseño de logotipo y versión de logo firma</div>
+            <div class="srv-item"><div class="srv-dot"></div>Desarrollo del código visual de comunicación</div>
+            <div class="srv-item"><div class="srv-dot"></div>Selección tipográfica principal y secundaria</div>
+            <div class="srv-item"><div class="srv-dot"></div>Definición de paleta de colores y jerarquías visuales</div>
+            <div class="srv-item"><div class="srv-dot"></div>Composición visual y lineamientos de uso</div>
+          </div>
+        </div>
+      </div>
+      <div class="srv-ents">
+        <div class="srv-ent-label">Entregables</div>
+        <div class="srv-ent-item"><div class="srv-ent-dot"></div>Logo final en todas sus variantes</div>
+        <div class="srv-ent-item"><div class="srv-ent-dot"></div>Paleta de colores + tipografías</div>
+        <div class="srv-ent-item"><div class="srv-ent-dot"></div>Recursos gráficos de comunicación</div>
+        <div class="srv-ent-item"><div class="srv-ent-dot"></div>Aplicaciones en piezas digitales</div>
+        <div class="srv-ent-item"><div class="srv-ent-dot"></div>Moodboard de referencias estéticas</div>
+        <div class="srv-ent-item"><div class="srv-ent-dot"></div>Guía básica de uso de identidad</div>
+      </div>
+    </div>
+
+    <!-- Servicio 02 -->
+    <div class="service-row reveal">
+      <div class="srv-num-col">
+        <div class="srv-num">02</div>
+      </div>
+      <div class="srv-main">
+        <div>
+          <div class="srv-title">Gestión de Redes Sociales · Instagram</div>
+          <div class="srv-sub">Plan mensual de contenido orientado a posicionar el estudio y comunicar servicios.</div>
+          <div class="srv-items">
+            <div class="srv-item"><div class="srv-dot"></div>9 publicaciones para feed por mes</div>
+            <div class="srv-item"><div class="srv-dot"></div>Diseño gráfico alineado a la identidad de marca</div>
+            <div class="srv-item"><div class="srv-dot"></div>Organización estética del perfil</div>
+            <div class="srv-item"><div class="srv-dot"></div>Contenido informativo e institucional</div>
+            <div class="srv-item"><div class="srv-dot"></div>12 historias mensuales</div>
+            <div class="srv-item"><div class="srv-dot"></div>Piezas informativas, comunicación de servicios y recordatorios</div>
+          </div>
+        </div>
+      </div>
+      <div class="srv-ents">
+        <div class="srv-ent-label">Mensualmente</div>
+        <div class="srv-ent-item"><div class="srv-ent-dot"></div>9 posts de feed diseñados</div>
+        <div class="srv-ent-item"><div class="srv-ent-dot"></div>12 historias diseñadas</div>
+        <div class="srv-ent-item"><div class="srv-ent-dot"></div>Calendario de publicación</div>
+        <div class="srv-ent-item"><div class="srv-ent-dot"></div>Archivos en formato apto para publicar</div>
+      </div>
+    </div>
+
+    <!-- Servicio 03 -->
+    <div class="service-row reveal">
+      <div class="srv-num-col">
+        <div class="srv-num">03</div>
+      </div>
+      <div class="srv-main">
+        <div>
+          <div class="srv-title">Diseño de Experiencia de Servicio</div>
+          <div class="srv-sub">Piezas que refuerzan la imagen profesional en cada contacto con el cliente.</div>
+          <div class="srv-items">
+            <div class="srv-item"><div class="srv-dot"></div>Placa de recordatorio de cita con fecha, horario y modalidad</div>
+            <div class="srv-item"><div class="srv-dot"></div>Ubicación o enlace de reunión incluido en la placa</div>
+            <div class="srv-item"><div class="srv-dot"></div>Brochure institucional de presentación del estudio</div>
+            <div class="srv-item"><div class="srv-dot"></div>Servicios ofrecidos e información de contacto en el brochure</div>
+            <div class="srv-item"><div class="srv-dot"></div>Diseño alineado a la identidad profesional en ambas piezas</div>
+          </div>
+        </div>
+      </div>
+      <div class="srv-ents">
+        <div class="srv-ent-label">Entregables</div>
+        <div class="srv-ent-item"><div class="srv-ent-dot"></div>Placa de recordatorio de cita</div>
+        <div class="srv-ent-item"><div class="srv-ent-dot"></div>Brochure institucional</div>
+        <div class="srv-ent-item"><div class="srv-ent-dot"></div>Formatos PDF + PNG listos para usar</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ENTREGABLES GENERALES + ALCANCE
+═══════════════════════════════════════ -->
+<section class="s-dark" id="entregables">
+  <div class="sec-header dark reveal">
+    <div class="sec-num">03</div>
+    <div class="sec-titles">
+      <div class="sec-eyebrow">Entregables & Alcance</div>
+      <div class="sec-title">Qué incluye<br>y qué no.</div>
+    </div>
+    <div class="sec-desc">La claridad en el alcance protege a las dos partes y permite planificar sin sorpresas.</div>
+  </div>
+
+  <div class="scope-grid">
+    <div class="scope-col incluye reveal reveal-delay-1">
+      <div class="sc-title">Incluye</div>
+      <div class="scope-item"><div class="si-dot">·</div><div>Archivos finales organizados por categoría y servicio</div></div>
+      <div class="scope-item"><div class="si-dot">·</div><div>Formatos digitales: PDF · PNG · JPG listos para usar</div></div>
+      <div class="scope-item"><div class="si-dot">·</div><div>Carpeta completa con todos los archivos de la marca</div></div>
+      <div class="scope-item"><div class="si-dot">·</div><div>Guía básica de uso de identidad visual</div></div>
+      <div class="scope-item"><div class="si-dot">·</div><div>Hasta 2 rondas de ajustes por entregable</div></div>
+      <div class="scope-item"><div class="si-dot">·</div><div>Acompañamiento durante los 20 días hábiles del proyecto</div></div>
+    </div>
+    <div class="scope-col fuera reveal reveal-delay-2">
+      <div class="sc-title">Fuera de este proyecto</div>
+      <div class="scope-item"><div class="si-dot">✕</div><div>Producción física de materiales — impresión u otros soportes</div></div>
+      <div class="scope-item"><div class="si-dot">✕</div><div>Fotografía o video profesional</div></div>
+      <div class="scope-item"><div class="si-dot">✕</div><div>Pauta publicitaria en redes o buscadores</div></div>
+      <div class="scope-item"><div class="si-dot">✕</div><div>Redacción de textos legales o contenido de redes más allá del diseño</div></div>
+      <div class="scope-item"><div class="si-dot">✕</div><div>Gestión mensual de publicación — el diseño se entrega listo para que publiques vos</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     INVERSIÓN
+═══════════════════════════════════════ -->
+<section class="s-light" id="inversion">
+  <div class="sec-header light reveal">
+    <div class="sec-num">04</div>
+    <div class="sec-titles">
+      <div class="sec-eyebrow">Inversión</div>
+      <div class="sec-title">Proyecto<br>llave en mano.</div>
+    </div>
+    <div class="sec-desc">Una inversión única por el proyecto completo, con opción de pago en dos cuotas.</div>
+  </div>
+
+  <div class="inv-layout">
+    <div class="inv-main reveal reveal-delay-1">
+      <div>
+        <div class="inv-label">Inversión total del proyecto</div>
+        <div class="inv-amount">USD <span>1.500</span></div>
+        <div class="inv-sub">Proyecto completo · 20 días hábiles<br>Branding + Redes + Experiencia de Servicio</div>
+      </div>
+      <div class="inv-pagos">
+        <div class="inv-pago">
+          <div class="ip-pct">70%</div>
+          <div class="ip-label">Al iniciar el proyecto</div>
+        </div>
+        <div class="inv-pago">
+          <div class="ip-pct">30%</div>
+          <div class="ip-label">Al momento de la entrega final</div>
+        </div>
+      </div>
+    </div>
+    <div class="inv-includes reveal reveal-delay-2">
+      <div class="ii-title">Qué incluye</div>
+      <div class="ii-item">
+        <div class="ii-name">Branding / Identidad de Marca completa</div>
+        <div class="ii-check">✓</div>
+      </div>
+      <div class="ii-item">
+        <div class="ii-name">Aplicaciones de marca + moodboard</div>
+        <div class="ii-check">✓</div>
+      </div>
+      <div class="ii-item">
+        <div class="ii-name">9 posts + 12 historias Instagram / mes</div>
+        <div class="ii-check">✓</div>
+      </div>
+      <div class="ii-item">
+        <div class="ii-name">Placa de recordatorio de cita</div>
+        <div class="ii-check">✓</div>
+      </div>
+      <div class="ii-item">
+        <div class="ii-name">Brochure institucional</div>
+        <div class="ii-check">✓</div>
+      </div>
+      <div class="ii-item">
+        <div class="ii-name">Archivos organizados + guía de uso</div>
+        <div class="ii-check">✓</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     CIERRE
+═══════════════════════════════════════ -->
+<section class="s-cierre" id="cierre">
+  <div class="cierre-ring" style="width:900px;height:900px;top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+  <div class="cierre-ring" style="width:580px;height:580px;top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+  <div class="cierre-ring" style="width:300px;height:300px;top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+
+  <div class="cierre-eyebrow reveal" style="position:absolute;top:52px;left:0;right:0;text-align:center;padding-top:40px;">Josefina & Gabriela</div>
+
+  <div class="cierre-title reveal reveal-delay-1">¿Estás lista para<br>evolucionar tu marca profesional?</div>
+
+  <button class="cierre-cta reveal reveal-delay-2" style="background:var(--blanco);color:var(--carbon);">
+    Trabajar en mi marca ahora
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--carbon)" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+  </button>
+
+  <div class="cierre-footer">
+    <span>Marzo 2026</span>
+  </div>
+</section>
+
+<script>
+// Progress
+const prog = document.getElementById('progress');
+window.addEventListener('scroll', () => {
+  const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+  prog.style.width = pct + '%';
+});
+
+// Reveal
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
